@@ -25,7 +25,7 @@ import sys
 # TODO: Add a way to properly add the weights of each node to the slush part
 # TODO: Fix the weight function and node influence part and the on the __main__ section
 
-# Turn this into a sungle function and also run it through a JIT compiler
+# Turn this into a single function and also run it through a JIT compiler
 '''
 import time
 time_of_creation = time.time() # The time of creation of a wallet should be added to the graph, and can be referenced whenever.

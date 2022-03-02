@@ -118,7 +118,7 @@ class Graph():
 
         else:
             self.failed_transactions.append(transaction)
-            raise RuntimeError(str({'[!] Invalid transaction. Attachment failed'}))
+            raise RuntimeError('[!] Invalid transaction. Attachment failed')
             return None
     def get_pending_transactions(self):
         return self.pending_transactions
@@ -131,8 +131,8 @@ class Graph():
             if a.sender_public_key == address or a.recipient_public_key == address:
                 return True
             else:
-                raise LookupError('The address you are trying to send cryptocurrency to does not exist')
                 return False
+                raise LookupError('The address you are trying to send cryptocurrency to does not exist')
     def is_valid_transaction(self, transaction):
         try:
             if transaction.recipient_public_key == None:
@@ -156,14 +156,14 @@ class Graph():
                 transaction['amount'] = 0
         try:
             if transaction.signature == None or len(transaction.signature) != 64:
-                raise RunTimeError(str({'[!] Invalid signature'}))
+                raise RuntimeError('[!] Invalid signature')
                 return False
             elif len(transaction.signature) == 64:
                 if transaction.previous_hashes == None and transaction.index == 0 or len(transaction.previous_hashes) == 2:
                     return True
         except AttributeError:
             if transaction['signature'] == None or len(transaction['signature']) != 64:
-                raise RunTimeError(str({'[!] Invalid signature'}))
+                raise RuntimeError('[!] Invalid signature')
                 return None
             elif len(transaction['signature']) == 64:
                 if transaction['previous_hashes'] == None and transaction['index'] == 0 or len(transaction['previous_hashes']) == 2:
@@ -230,9 +230,12 @@ class Graph():
         if len(confirmed_transactions) >= 2:
             util = Util()
             if sender_public_key == recipient_public_key:
-                new_transaction = tx(sender_public_key, recipient_public_key, amount, signature, index=self.count_tx_number())
-                self.update_cumulative_weights(new_transaction, confirmed_transactions)
-                return self.attach_transaction(new_transaction, confirmed_transactions)
+                if util.get_appearances(sender_public_key) > 0:
+                    raise RuntimeError('[!] You cannot send to yourself, what the heck are you doing?')
+                else:
+                    new_transaction = tx(sender_public_key, recipient_public_key, amount, signature, index=self.count_tx_number())
+                    self.update_cumulative_weights(new_transaction, confirmed_transactions)
+                    return self.attach_transaction(new_transaction, confirmed_transactions)
             elif sender_public_key != recipient_public_key:
                 if self.does_address_exist(recipient_public_key) == True:
                     balance = util.get_balance(sender_public_key)
@@ -244,5 +247,4 @@ class Graph():
                         return self.attach_transaction(new_transaction, confirmed_transactions)
                 elif self.does_address_exist(recipient_public_key) == False:
                     raise LookupError("[!] Recipient address does not exist, please refresh the page and try again.")
-        raise RunTimeError({'[-] Transaction Failed...'})
         return {'[-] Transaction Failed...'}

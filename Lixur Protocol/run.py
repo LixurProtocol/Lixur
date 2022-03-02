@@ -36,7 +36,7 @@ def new_transaction():
         print("You're about to make a transaction...")
         response = node.graph.make_transaction(
             alphanumeric_address,
-            input("Enter the recipient's alphanumeric address: "),
+            input("Enter the recipient's address: "),
             int(input("Enter the amount of LXR to send: ").replace(",", "")),
             cryptography.sign_tx(public_key, private_key, "Lixur"))
     else:
@@ -47,7 +47,6 @@ def new_transaction():
 
 @app.route('/wallet', methods=['GET', 'POST'])
 def address_retrieval():
-
     alphanumeric_address = cryptography.get_ex_alphanumeric_address(cryptography)
     readable_address = cryptography.get_ex_readable_address(cryptography)
 

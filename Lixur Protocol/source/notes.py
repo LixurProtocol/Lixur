@@ -2,7 +2,13 @@
 Estimated Testnet Beta Release: March 2022 (But progress greatly depends on how fast we can implement a functional peer to peer network, if we can do this in two days,
 then 7-14 days after should be the release date hopefully). PS: Update the code on GitHub before you post this to the Discord Server.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
-*: Focus on recruiting developers.
+Tasks:
+*: Associate readable addresses.
+*: Solve cryptocurrency forge problem
+*: Nano everyone has their ledger thing
+*: Address pair
+*: Indicate you have windows on the readme
+*: Focus on recruiting developers, this time search up open-sourced developers or open-source blockchain developers.
 
 *: We need to establish a peer to peer connection framework where multiple devices can interact and append to the ledger and network. We will know we have
 completed this when I can run the program from multiple devices and they can submit their own transactions and on the /node page, there should be
@@ -17,20 +23,9 @@ be simplified, modified or otherwise added/removed. Then probably make a nice HT
 
 People can spam the network sending transactions to themselves.
 
+theres a small chance only tw transactions will appear, probably due to an error appending the transaction to the ledger.
+
 [!] This will be a Testnet Beta Version, the LXR will be worth nothing (Will have legit value in the Main-net) and expect chaos, haywire, bugs, malfunctions etc.
 (Until Main-net Version/Main-net Beta Version is released, likely somewhere around Late 2022 to Early 2023. The purpose of the Testnet Beta is to test functionality.
 
-Roadmap:
-*: Have a Directed Acyclic Graph and functioning consensus (DAG and Enchanted), Quantum resistant cryptographic public and private keys and human-readable addresses.
-[!] Almost done with this, a month maximum until this will be completed and Testnet Beta Version 1.0.0 is released.
-*: The creation of a unified layer zero interoperable protocol (like Polkadot) of subgraphs (analogous to parachains on Polkadot) that can relay and store arbitrary data
-and information from any amount of points in the entire Lixur ecosystem where it can do so.
-*: Enable privacy capabilities and zero knowledge proof capabilities for information and data that needs to be stored as private and need quick retrieval.
-*: Enable people to add subgraphs, sub-ecosystems, and nodes to the network, by themselves in a secure, trustless, and attack-resistant way.
-Subsystems and subgraphs can be added and customized to the ecosystem. These graphs should be upgradeable however you want w/o hard forks.
-*: Add smart contract capabilities, intelligent contract capabilities (optional at this point, can be done later) and secret databoxes, as well as token types to
-support all kinds of NFTs, cryptocurrencies and others.
-*: Release a hyper simple and straightforward UI for people to use to develop applications and contracts.
-An A.I programmer can be a helper that can help you, do the work for you and detect loopholes and security flaws automatically.
-People can use natural language processing and have it code what it wants for them, making developing applications zero-coding knowledge required.
 """
