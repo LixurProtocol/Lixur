@@ -59,9 +59,13 @@ def address_retrieval():
         node.refresh()
         print("[+] Genesis Wallet created")
     elif utils.get_graph_tx_count() >= 4:
+        node.graph.make_transaction(
+            alphanumeric_address,
+            alphanumeric_address,
+            42000000,
+            cryptography.sign_tx(cryptography.get_public_key(cryptography), cryptography.get_private_key(cryptography), "Lixur"))
         node.refresh()
 
-    node.refresh()
     response = {
         "alphanumeric_address": alphanumeric_address,
         "readable_address": readable_address,
