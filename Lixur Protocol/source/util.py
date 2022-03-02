@@ -43,83 +43,21 @@ class Util:
             return len(graph_data.keys())
         except FileNotFoundError:
             print("Graph not found.")
-
-
-
-# Code for recycling
-'''
-    def transfer(self, public_key, private_key, recipient, amount):
-        recipient = next(v for k, v in self.network_assets["list"] if str(recipient) in k)
-        # If a recipient address doesn't exist, return an error
-        # I also need to verify signatures as well
-        # Hash signatures and append them to the transaction
-
-        def cryptographic_police(public_key, private_key, recipeint, amount):
-            try:
-                signature = sphincs_sign(private_key, bytes(f"{public_key} -> {recipient}"), 'utf-8')
-                assert signature
-                assert verify(public_key, bytes((f"{public_key} -> {recipient}: Amount: {amount}"), 'utf-8'), signature)
-                print("[+] Transaction verified.")
-            except AssertionError:
-                print("[-] Transaction failed, invalid cryptographic signature.")
-
-        if public_key in network_assets["list"].keys():
-            if amount >= self.balance[balance]:
-                tangle = Tangle()
-                tangle.make_transaction()
-                cryptographic_police(public_key, private_key, recipient, amount)
-                self.addresses[balance] -= amount
-                recipient[balance] += amount
-                print("[+] Withdraw Successful. Current Balance: (%s)" % str(self.addresses[address]))
-                return self.addresses[balance]
-            else:
-                print("[-] Insufficient Funds")
-                return None
-        else:
-            print("[-] This wallet does not have such an address!! (%s)" % address)
-            return None
-            
-            
-    graph = self.graph
-        for tip in confirmed_transactions:
-            tip_list = []
-            tip_list.append(tip)
-            for key in graph:
-                for tip in tip_list:
-                    if key == tip:
-                        print(f'Success! {key} = {tip}')
-                        weights = []
-                        if graph[key].previous_hashes == None or "None":
-                            continue
-                        elif graph[key].previous_hashes != None or "None":
-                            print("nice")
-                            weights.append(graph[key].previous_hashes)
-                            print(f'weights: {type(weights)}')
-                            cumulative_weight = sum(weights)
-                            print("[+] Cumulative weight: %d" % cumulative_weight)
-                            return cumulative_weight
-                            
-        
-
-    def is_valid_transaction(self, transaction):
-        if transaction.signature == None or len(transaction.signature) != 64:
-            print(str({'[!] Invalid signature'}))
-            return None
-        elif len(transaction.signature) == 64:
-            if transaction.previous_hashes == None and transaction.index == 0 or len(transaction.previous_hashes) == 2:
-                return True
-        '''
-
-'''
-        TODO: implement transaction validation logic.
-
-        We first need to make sure necessary things are appended such as a valid signature, and confirmed transactions.
-
-        We then to check if the sending wallet has enough amount if the transaction isn't void. Look through the ledger for this or we can
-        use the get_balance() function to instantly determine the balance of a given sending address.
-
-        After transaction validation has been completed, consensus has to be ran. This is where we need to implement the consensus algorithm.
-
-        If anywhere we encounter an error, we cancel and revoke the transaction and say it's invalid and list why.
-        If there is no errors, we append the transaction to the ledger.
-'''
+    def get_appearances(self, address):
+        appearances = 0
+        graph_data = self.get_graph()
+        for tx in graph_data:
+            if address == graph_data[tx]['sender'] or address == graph_data[tx]['recipient']:
+                appearances += 1
+        return appearances
+    def get_balance(self, address):
+        balance = 0
+        graph_data = self.get_graph()
+        for tx in graph_data:
+            if graph_data[tx]['sender'] == address and graph_data[tx]['recipient'] == address:
+                balance += graph_data[tx]['amount']
+            if address == graph_data[tx]['sender']:
+                balance -= int(graph_data[tx]["amount"])
+            if address == graph_data[tx]["recipient"]:
+                balance += int(graph_data[tx]["amount"])
+        return balance
